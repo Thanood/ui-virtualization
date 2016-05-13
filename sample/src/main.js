@@ -4,6 +4,7 @@ export function configure(aurelia) {
     .developmentLogging()
     .plugin('aurelia-animator-css')
     .plugin('aurelia-ui-virtualization');
+    // .feature('features');
 
   aurelia.start().then(a => a.setRoot());
 }

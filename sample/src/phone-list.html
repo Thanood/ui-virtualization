@@ -1,4 +1,7 @@
 <template>
+  <require from="./phone-list.css"></require>
+  <require from="./features/my-list-item.html"></require>
+  <require from="./features/item-indicator"></require>
  <div class="array-actions">
    <button class="btn btn-primary" click.delegate="addItems(1000)">Add 1000</button>
    <button class="btn btn-primary" click.delegate="addItems(10000)">Add 10 000</button>
@@ -9,14 +12,15 @@
    <button class="btn btn-primary" click.delegate="removeLast()">Remove 1 at bottom</button>
    <button class="btn btn-primary" click.delegate="toggle()">Toggle visibility</button>
    <button class="btn btn-primary" click.delegate="swap()">Swap</button>
+   <input type="checkBox" checked.bind="showIndicated" />
  </div>
 
  <div if.bind="isVisible">
-   <div virtual-repeat.for="item of objectArray" class="contact-list-item ${item.name}">
-     <div class="contact-item">
+   <div virtual-repeat.for="item of filteredArray" class="contact-list-item ${item.name}">
+     <div item-indicator="item.bind: item; first-item.bind: filteredArray[0];" class="contact-item">
        <div class="avatar" click.delegate="click()" css="background-color: ${item.color}">${item.firstLetter}</div>
          <div class="name">
-           ${$index} ${item.name}
+           ${$index}/${item.id} ${item.name}
          </div>
          <div class="content">
            <strong>Phone:</strong> ${item.phone} <br />

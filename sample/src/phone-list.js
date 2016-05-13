@@ -1,7 +1,12 @@
+import {observable} from 'aurelia-framework';
+
 export class PhoneList {
+
+  @observable() showIndicated = true;
 
   constructor() {
     this.objectArray = [];
+    this.filteredArray = [];
     this.objectArray2 = [];
     this.numberOfItems = 100;
     this.isSelected = false;
@@ -28,6 +33,7 @@ export class PhoneList {
   createItem(index){
     var name = faker.name.findName();
     return {
+      id: index,
       firstLetter: name.charAt(0),
       name: name,
       color: faker.internet.color(),
@@ -42,6 +48,7 @@ export class PhoneList {
       name = faker.name.findName();
       this.objectArray.push(this.createItem(i));
     }
+    this.filteredArray = this.objectArray.filter(item => true);
 
     for (var i = 0; i < this.numberOfItems; ++i) {
       name = faker.name.findName();
@@ -85,5 +92,9 @@ export class PhoneList {
 
   removeLast() {
     this.objectArray.pop();
+  }
+
+  showIndicatedChanged(newValue) {
+    this.filteredArray = this.objectArray.filter(item => newValue || item.firstLetter === this.objectArray[0].firstLetter);
   }
 }
